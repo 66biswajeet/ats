@@ -1,0 +1,31 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* --primary-color: #3d52a0;
+  --secondary-color: #7091e6;
+  --third-color: #8697c4;
+  --fourth-color: #adbbda;
+  --fifth-color: #ede8f5; */
+
+  /* --primary-color: #03045e;
+  --secondary-color: #0077b6;
+  --third-color: #00b4d8;
+  --fourth-color: #90e0ef;
+  --fifth-color: #caf0f8; */
+
+  /* --primary-color: #22577a;
+  --secondary-color: #38a3a5;
+  --third-color: #57cc99;
+  --fourth-color: #80ed99;
+  --fifth-color: #c7f9cc; */
+
+  --primary-color: #134074;
+  --secondary-color: #13315c;
+  --third-color: #0b2545;
+  --fourth-color: #8da9c4;
+  --fifth-color: #eef4ed;
+}
