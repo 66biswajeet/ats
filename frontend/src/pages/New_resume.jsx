@@ -436,32 +436,34 @@ const New_resume = () => {
 
           <ResumeList>
             {resumes.map((resume) => (
-              <ResumeCard key={resume.resumeId}>
-                <ResumeDate>
-                  Last Updated : <br></br>{" "}
-                  {new Date(
-                    resume.updatedAt || resume.createdAt
-                  ).toLocaleString()}
-                </ResumeDate>
+              <div key={resume.resumeId}>
+                <ResumeCard>
+                  <ResumeDate>
+                    Last Updated : <br></br>{" "}
+                    {new Date(
+                      resume.updatedAt || resume.createdAt
+                    ).toLocaleString()}
+                  </ResumeDate>
 
-                <ResumeTitle>{resume.resumeName}</ResumeTitle>
+                  <ResumeTitle>{resume.resumeName}</ResumeTitle>
 
-                <Subtitle>You can edit or delete resume</Subtitle>
+                  <Subtitle>You can edit or delete resume</Subtitle>
 
-                <ButtonGroup>
-                  <Button
-                    as={Link}
-                    to={`/dashboard/resume/${resume.resumeId}/edit`}
-                    primary
-                  >
-                    <GrEdit />. Edit
-                  </Button>
+                  <ButtonGroup>
+                    <Button
+                      as={Link}
+                      to={`/dashboard/resume/${resume.resumeId}/edit`}
+                      primary
+                    >
+                      <GrEdit />. Edit
+                    </Button>
 
-                  <Button onClick={() => handleDeleteResume(resume.resumeId)}>
-                    <AiFillDelete /> Delete
-                  </Button>
-                </ButtonGroup>
-              </ResumeCard>
+                    <Button onClick={() => handleDeleteResume(resume.resumeId)}>
+                      <AiFillDelete /> Delete
+                    </Button>
+                  </ButtonGroup>
+                </ResumeCard>
+              </div>
             ))}{" "}
           </ResumeList>
         </Cards>
