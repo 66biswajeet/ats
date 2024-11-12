@@ -127,7 +127,7 @@ const EditResume = () => {
 
   const { user } = useUser();
   const [resumes, setResumes] = useState([]);
-  const [selectedResume, setSelectedResume] = useState(); // State for the filtered resume
+  const [selectedResume, setSelectedResume] = useState(null); // State for the filtered resume
   const { resumeId } = useParams();
 
   const toggleSection = (index) => {
@@ -212,6 +212,8 @@ const EditResume = () => {
     }
   }, [resumes, resumeId]);
 
+  // console.log(selectedResume.candidateName);
+
   const handleInputChange = useCallback(
     (setter) => (event) => {
       setter(event.target.value);
@@ -219,6 +221,36 @@ const EditResume = () => {
     []
   );
 
+  const renderResumePreview = () => {
+    if (selectedResume.resumeName.length <= 0) {
+      return (
+        <div>
+          <Head>Resume Preview</Head>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis
+            quidem omnis illo sapiente veritatis placeat temporibus corporis
+            labore voluptas dolore consequuntur molestiae doloremque quae
+            reprehenderit explicabo distinctio, hic fugiat quisquam voluptatum
+            aperiam veniam vitae. Expedita saepe iusto sed, nemo asperiores
+            placeat impedit id earum minus fuga consequatur modi iste quaerat
+            numquam voluptas eligendi dolore quod dicta rerum natus! Cumque
+            consequuntur commodi facere similique architecto iusto magnam,
+            voluptatum ullam adipisci aut, ipsum sequi praesentium iste
+            laboriosam suscipit repellat! Amet magni quae, aliquam natus maxime
+            non. Fugiat reiciendis placeat deleniti cumque sed nam dolores
+            nesciunt voluptatem, asperiores excepturi, fuga sint vero commodi.
+          </p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Head>Resume Preview</Head>
+          <ResumeTemplate1 />
+        </div>
+      );
+    }
+  };
   return (
     <>
       {/* {selectedResume ? (
@@ -318,7 +350,9 @@ const EditResume = () => {
         ) : (
           <p>Loading resume data....</p>
         )}
+
         <RightContent>
+          {" "}
           <Head>Resume Preview</Head>
           <ResumeTemplate1 />
         </RightContent>

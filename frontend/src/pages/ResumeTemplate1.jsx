@@ -155,11 +155,13 @@ const ResumeTemplate = () => {
   return (
     <A4Page>
       <Header>
-        <Name>{selectedResume.candidateName}</Name>
+        <Name>{selectedResume.candidateName || "Lorem Ipsum"}</Name>
         <ContactInfo>
-          <div>{selectedResume.candidateEmail}</div>
-          <div>{selectedResume.candidateAddress}</div>
-          <div>{selectedResume.candidatePhone}</div>
+          <div>{selectedResume.candidateEmail || "lorem@mail.com"}</div>
+          <div>
+            {selectedResume.candidateAddress || "lorem Colony, Near lorem Gate"}
+          </div>
+          <div>{selectedResume.candidatePhone || "0000011111"}</div>
         </ContactInfo>
       </Header>
 

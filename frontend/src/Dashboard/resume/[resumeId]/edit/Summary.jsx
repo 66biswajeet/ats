@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
+import { chatSession } from "../../../../gen-ai/Gemini";
+import summaryPrompt from "../../../../prompts/summaryPrompt";
 
 const InputContainer = styled.div`
   display: flex;
@@ -52,6 +54,9 @@ const Button = styled.button`
 
 const ResumeSummaryInput = () => {
   const [summary, setSummary] = useState("");
+  const [userSummary, setUserSummary] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState("");
 
   const { user } = useUser();
   const [resumes, setResumes] = useState([]);
@@ -85,7 +90,7 @@ const ResumeSummaryInput = () => {
     const resumeData = {
       resumeId: resumeId,
 
-      summary: summary,
+      summary: response,
       summaryHeading: "Summary",
     };
 
@@ -112,9 +117,6 @@ const ResumeSummaryInput = () => {
         throw new Error("Failed to edit resume");
       }
 
-      console.log(resumeData);
-      console.log(summaryData);
-
       // navigate(`/dashboard/resume/${resumeData.resumeId}/edit`);
     } catch (error) {
       console.error("Error editing resume:", error);
@@ -127,21 +129,53 @@ const ResumeSummaryInput = () => {
 
       setSelectedResume(resume);
       if (resume) {
-        setSummary(resume.summary);
+        // setSummary(resume.summary);
+        setSummary(response);
       }
     }
   }, [resumes, resumeId]);
 
+  const generateResponse = async () => {
+    setLoading(true);
+    try {
+      const summary_response = await chatSession.sendMessage(
+        summaryPrompt(userSummary)
+      );
+      setResponse(summary_response.response.text());
+    } catch (error) {
+      console.error("Error fetching response:", error);
+    }
+    setLoading(false);
+  };
+
   return (
+    // <InputContainer>
+    //   <Label htmlFor="summary">Summary:</Label>
+    //   <StyledInput
+    //     id="summary"
+    //     placeholder="Enter your Summary:"
+    //     value={userSummary}
+    //     onChange={(e) => setUserSummary(e.target.value)} // Directly handle input change
+    //   />
+    //   <Button onClick={handleEditResumes}>Save</Button>
+    // </InputContainer>
+
     <InputContainer>
       <Label htmlFor="summary">Summary:</Label>
       <StyledInput
         id="summary"
         placeholder="Enter your Summary:"
-        value={summary}
-        onChange={(e) => setSummary(e.target.value)} // Directly handle input change
+        value={userSummary}
+        onChange={(e) => setUserSummary(e.target.value)}
       />
-      <Button onClick={handleEditResumes}>Save</Button>
+      <Button onClick={generateResponse}>Generate with AI</Button>
+      {response && (
+        <div className="border p-4 rounded">
+          <h3 className="font-bold mb-2">AI Response:</h3>
+          <p>{response}</p>
+          <Button onClick={handleEditResumes}>Save</Button>
+        </div>
+      )}
     </InputContainer>
   );
 };
