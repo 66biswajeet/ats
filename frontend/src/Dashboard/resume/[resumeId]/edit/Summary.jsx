@@ -28,7 +28,7 @@ const StyledInput = styled.textarea`
   color: var(--third-color);
   background-color: var(--fifth-color);
   transition: border-color 0.3s ease;
-  height: 100px;
+  height: 150px;
 
   &:focus {
     outline: none;
@@ -90,7 +90,7 @@ const ResumeSummaryInput = () => {
     const resumeData = {
       resumeId: resumeId,
 
-      summary: response,
+      summary: userSummary,
       summaryHeading: "Summary",
     };
 
@@ -129,8 +129,8 @@ const ResumeSummaryInput = () => {
 
       setSelectedResume(resume);
       if (resume) {
-        // setSummary(resume.summary);
-        setSummary(response);
+        setUserSummary(resume.summary || "");
+        //  setSummary(response);
       }
     }
   }, [resumes, resumeId]);
@@ -145,7 +145,10 @@ const ResumeSummaryInput = () => {
     } catch (error) {
       console.error("Error fetching response:", error);
     }
-    setLoading(false);
+    // setLoading(false);
+    setUserSummary(response);
+    console.log(userSummary);
+    console.log(response);
   };
 
   return (
@@ -169,13 +172,14 @@ const ResumeSummaryInput = () => {
         onChange={(e) => setUserSummary(e.target.value)}
       />
       <Button onClick={generateResponse}>Generate with AI</Button>
-      {response && (
+      <Button onClick={handleEditResumes}>Save</Button>
+      {/* {response && (
         <div className="border p-4 rounded">
           <h3 className="font-bold mb-2">AI Response:</h3>
           <p>{response}</p>
           <Button onClick={handleEditResumes}>Save</Button>
         </div>
-      )}
+      )} */}
     </InputContainer>
   );
 };

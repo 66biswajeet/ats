@@ -31,7 +31,7 @@ const ContactInfo = styled.div`
 
 const Summary = styled.p`
   font-size: 10pt;
-  text-align: center;
+  // text-align: center;
   margin-bottom: 5mm;
 `;
 
