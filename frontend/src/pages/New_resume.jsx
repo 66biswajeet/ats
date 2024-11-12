@@ -298,6 +298,10 @@ const Placeholder = styled.div`
 const New_resume = () => {
   const { user } = useUser(); // Optional if you're using Clerk for authentication
   const [isOpen, setIsOpen] = useState(false);
+
+  const [isDelete,setIsDelete]= useState(false);
+  const [isDeleteId,setIsDeleteId]=useState();
+
   const [resumeTitle, setResumeTitle] = useState("");
   const [resumes, setResumes] = useState([]);
 
@@ -305,7 +309,15 @@ const New_resume = () => {
 
   const handleClick = () => {
     setIsOpen(true);
+    
   };
+
+  const handleDelete = (r)=>{
+    setIsDelete(true);
+    setIsDeleteId(r);
+    return r;
+  }
+
   const resumeId = uuidv4();
   const handleCreateResume = async () => {
     const resumeData = {
@@ -391,6 +403,7 @@ const New_resume = () => {
       // Remove the deleted resume from the state
       setResumes(resumes.filter((resume) => resume.resumeId !== resumeId));
       console.log("Resume deleted successfully");
+      setIsDelete(false);
     } catch (error) {
       console.error("Error deleting resume:", error);
     }
@@ -434,9 +447,25 @@ const New_resume = () => {
             </Pc>
           )}
 
+          { 
+            isDelete && (
+              <Pc>
+                <Popup>
+                  <Title> Are you sure you want to permanently delete the selected Resume? </Title>
+                  <Close onClick={()=>handleDeleteResume(isDeleteId)}>Delete</Close>
+                  <Close onClick={()=> setIsDelete(false)}>Cancel</Close>
+                </Popup>
+              </Pc>
+            )
+          }
+
+          
+
           <ResumeList>
             {resumes.map((resume) => (
-              <ResumeCard key={resume.resumeId}>
+              <div key={resume.resumeId}> 
+              
+              <ResumeCard >
                 <ResumeDate>
                   Last Updated : <br></br>{" "}
                   {new Date(
@@ -457,11 +486,16 @@ const New_resume = () => {
                     <GrEdit />. Edit
                   </Button>
 
-                  <Button onClick={() => handleDeleteResume(resume.resumeId)}>
+                  {/* <Button onClick={() => handleDeleteResume(resume.resumeId)}> */}
+                  <Button onClick={()=>handleDelete(resume.resumeId)} >
                     <AiFillDelete /> Delete
+                    
                   </Button>
                 </ButtonGroup>
               </ResumeCard>
+              
+
+              </div>
             ))}{" "}
           </ResumeList>
         </Cards>
