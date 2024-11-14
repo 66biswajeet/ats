@@ -305,7 +305,18 @@ const New_resume = () => {
   const [resumeTitle, setResumeTitle] = useState("");
   const [resumes, setResumes] = useState([]);
 
+  const [isEmptyTitle, setIsEmptyTitle] = useState(false);
+
   const navigate = useNavigate();
+
+  const empty=()=>{
+    // if(resumeTitle.trim()=== ""){
+      window.alert("Please enter a Resume Title first...");
+      setIsEmptyTitle(true);
+      setIsOpen(false);
+      return;
+    //}
+  }
 
   const handleClick = () => {
     setIsOpen(true);
@@ -342,6 +353,7 @@ const New_resume = () => {
       }
 
       console.log("Resume created successfully");
+
       console.log(resumeData);
 
       setResumeTitle("");
@@ -440,7 +452,7 @@ const New_resume = () => {
                   onChange={(e) => setResumeTitle(e.target.value)}
                 />
 
-                <Close onClick={handleCreateResume}>Create</Close>
+                <Close onClick={(resumeTitle.trim()=== "") ? empty : handleCreateResume}>Create</Close>
                 <Close onClick={() => setIsOpen(false)}>Close</Close>
               </Popup>
             </Pc>
