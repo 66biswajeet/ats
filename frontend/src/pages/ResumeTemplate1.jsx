@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useUser } from "@clerk/clerk-react"; // Ensure Clerk is properly set up
-
+import DOMPurify from "dompurify";
 // Styled Components
 const A4Page = styled.div`
   width: 178mm;
@@ -151,6 +151,9 @@ const ResumeTemplate = () => {
     return <p>No resume data available</p>; // Fallback if no data is found
   }
 
+  const formatResponse = (text) => {
+    return DOMPurify.sanitize(text);
+  };
   // Render resume data
   return (
     <A4Page>
@@ -169,23 +172,14 @@ const ResumeTemplate = () => {
       <Summary>{selectedResume.summary}</Summary>
 
       <Section>
-        {/* <SectionTitle>PROFESSIONAL EXPERIENCE</SectionTitle> */}
-        {/* {selectedResume.experience &&
-          selectedResume.experience.map((job, index) => (
-            <ExperienceItem key={index}>
-              <JobTitle>{job.jobTitle}</JobTitle>
-              <JobDetails>
-                <Company>{job.company},</Company>
-                <Location>{job.location}</Location>
-              </JobDetails>
-              <div>{job.date}</div>
-              <BulletList>
-                {job.bullets.map((bullet, i) => (
-                  <BulletItem key={i}>{bullet}</BulletItem>
-                ))}
-              </BulletList>
-            </ExperienceItem>
-          ))} */}
+        <SectionTitle>PROFESSIONAL EXPERIENCE</SectionTitle>
+        <Summary
+          dangerouslySetInnerHTML={{
+            __html: formatResponse(selectedResume.experience),
+          }}
+        />
+
+        {/* {console.log(selectedResume.experience)}
       </Section>
 
       <Section>

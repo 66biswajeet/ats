@@ -25,7 +25,7 @@ class Newresume {
     candidateNumber = "",
     summary = "",
     summaryHeading = "Summary",
-    experience = [],
+    experience = "",
     education = {},
     skills = []
   ) {
