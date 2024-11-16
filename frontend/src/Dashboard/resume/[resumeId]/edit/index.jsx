@@ -9,6 +9,7 @@ import ResumeTemplate2 from "../../../../pages/ResumeTemplate2";
 import CandidateInfo from "./CandidateInfo";
 import EditResume2 from "./EditResume2";
 import ResumeSummaryInput from "./Summary";
+import SkillsInput from "../../../Skills";
 
 const Container = styled.div`
   display: grid;
@@ -271,7 +272,6 @@ const EditResume = () => {
             <Docpara>
               This is where you can add controls, forms, or other content.
             </Docpara>
-
             {/* <InputContainer>
               <Label htmlFor="candidateName">Candidate Name:</Label>
               <StyledInput
@@ -312,7 +312,6 @@ const EditResume = () => {
               <Button>Next</Button>
             </Link>
             */}
-
             <Container2>
               <Section>
                 <Question onClick={() => toggleSection(0)}>
@@ -345,7 +344,25 @@ const EditResume = () => {
                   />
                 </Answer>
               </Section>
-            </Container2>
+            </Container2>{" "}
+            <Section>
+              <Question onClick={() => toggleSection(0)}>
+                <h4>Add Skills</h4>
+                <h2>{openSection === 0 ? "-" : "+"}</h2>
+              </Question>
+              <Answer isOpen={openSection === 0}>
+                <SkillsInput
+                // candidateName={candidateName}
+                // candidateEmail={candidateEmail}
+                // candidateAddress={candidateAddress}
+                // setCandidateName={setCandidateName} // Pass the setter
+                // setCandidateEmail={setCandidateEmail} // Pass the setter
+                // setCandidateAddress={setCandidateAddress} // Pass the setter
+                // handleEditResumes={handleEditResumes}
+                // selectedResumeId={selectedResume.resumeId} // Pass the selected resume ID
+                />
+              </Answer>
+            </Section>
           </LeftContent>
         ) : (
           <p>Loading resume data....</p>
