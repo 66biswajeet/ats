@@ -10,6 +10,7 @@ import CandidateInfo from "./CandidateInfo";
 import EditResume2 from "./EditResume2";
 import ResumeSummaryInput from "./Summary";
 import ExperienceInput from "./Experience";
+import EducationInput from "./Education";
 
 const Container = styled.div`
   display: grid;
@@ -339,6 +340,19 @@ const EditResume = () => {
                 </Question>
                 <Answer isOpen={openSection === 2}>
                   <ExperienceInput
+                  // summary={summary}
+                  // setSummary={setSummary}
+                  // handleEditResumes={handleEditResumes}
+                  />
+                </Answer>
+              </Section>
+              <Section>
+                <Question onClick={() => toggleSection(3)}>
+                  <h4> Add Education</h4>
+                  <h2>{openSection === 3 ? "-" : "+"}</h2>
+                </Question>
+                <Answer isOpen={openSection === 3}>
+                  <EducationInput
                   // summary={summary}
                   // setSummary={setSummary}
                   // handleEditResumes={handleEditResumes}

@@ -177,6 +177,16 @@ const CandidateInfo = () => {
           onChange={(e) => setCandidateAddress(e.target.value)} // Use direct setter here
         />
       </InputContainer>
+      <InputContainer>
+        <Label htmlFor="candidateNumber">Candidate Phone Number:</Label>
+        <StyledInput
+          id="candidateNumber"
+          type="text"
+          placeholder="Enter Candidate Phone Number"
+          value={candidateNumber}
+          onChange={(e) => setCandidateNumber(e.target.value)} // Use direct setter here
+        />
+      </InputContainer>
 
       <Button onClick={handleEditResumes}>Save</Button>
       {/* <Link to={`/dashboard/resume/${selectedResumeId}/edit/summary`}>

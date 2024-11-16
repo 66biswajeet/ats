@@ -29,10 +29,17 @@ const ContactInfo = styled.div`
   color: #333;
 `;
 
-const Summary = styled.p`
+const Summary = styled.span`
   font-size: 10pt;
   // text-align: center;
   margin-bottom: 5mm;
+`;
+
+const Marks = styled.span`
+  font-size: 10pt;
+  // text-align: center;
+  margin-bottom: 5mm;
+  margin-left: 10px;
 `;
 
 const Section = styled.section`
@@ -164,7 +171,7 @@ const ResumeTemplate = () => {
           <div>
             {selectedResume.candidateAddress || "lorem Colony, Near lorem Gate"}
           </div>
-          <div>{selectedResume.candidatePhone || "0000011111"}</div>
+          <div>{selectedResume.candidateNumber || "0000011111"}</div>
         </ContactInfo>
       </Header>
 
@@ -172,12 +179,45 @@ const ResumeTemplate = () => {
       <Summary>{selectedResume.summary}</Summary>
 
       <Section>
-        <SectionTitle>PROFESSIONAL EXPERIENCE</SectionTitle>
-        <Summary
+        {/* <Summary
           dangerouslySetInnerHTML={{
-            __html: formatResponse(selectedResume.experience),
+            __html: formatResponse(selectedResume.experiences.map(())),
           }}
-        />
+        /> */}
+
+        <SectionTitle>{selectedResume.experiencesHeading}</SectionTitle>
+        {selectedResume.experiences && selectedResume.experiences.length > 0 ? (
+          selectedResume.experiences.map((experience, index) => (
+            <ExperienceItem key={index}>
+              <JobDetails>
+                <Company>{experience.companyName || "Company Name"}</Company>
+
+                <span>{experience.timeWorked || "Time Period"}</span>
+              </JobDetails>
+              {/* <Location>{experience.workDone || "Workdone"}</Location> */}
+              <Summary>{experience.fresponse}</Summary>
+            </ExperienceItem>
+          ))
+        ) : (
+          <p></p>
+        )}
+
+        <SectionTitle>{selectedResume.educationHeading}</SectionTitle>
+        {selectedResume.education && selectedResume.education.length > 0 ? (
+          selectedResume.education.map((edu, index) => (
+            <ExperienceItem key={index}>
+              <JobDetails>
+                <Company>{edu.instituteName || "Institute Name"}</Company>
+
+                <span>{edu.duration || "Time Period"}</span>
+              </JobDetails>
+              {/* <Location>{experience.workDone || "Workdone"}</Location> */}
+              <Summary>{edu.course}</Summary> <Marks>{edu.marks}</Marks>
+            </ExperienceItem>
+          ))
+        ) : (
+          <p></p>
+        )}
 
         {/* {console.log(selectedResume.experience)}
       </Section>

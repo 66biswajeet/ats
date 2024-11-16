@@ -1,11 +1,18 @@
-const experiencePrompt = (companyName, timeWorked, workDone) => {
+const experiencePrompt = (workDone) => {
   return `
-  Task:(only generate the tags content as structured below and not even one line extra before or after the content i have strutured, no heading required)
-  <h4>${companyName}</h4>
-  <h4>${timeWorked}</h4>
-  <h4>${workDone}</h4>
-  and also do the following
-  <h3>make sentence out of the following h4 tags .</h3>`;
+  Task:(only generate as instructed and not even one line extra before or after the content i have structured, no heading required)
+  
+  
+  
+   rewrite the contribution (${workDone}) in 30 words paragraph .
+  
+  `;
 };
 
 export default experiencePrompt;
+
+// <div style="display:flex; flex-direction:row; justify-content : space-between ">
+//   <h4>Company Name: ${companyName}</h4>
+//   <h4 style="margin-left: 10px;"> ${timeWorked}</h4>
+// </div>
+// <h4 style="margin-top:-10px">Position : ${position}</h4>
