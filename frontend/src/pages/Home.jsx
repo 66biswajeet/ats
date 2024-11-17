@@ -127,7 +127,7 @@ const Home = () => {
         <Link to="/ats/resume">
           <SecondaryButton>Check ATS</SecondaryButton>
         </Link>
-        <SecondaryButton>Parse Resume</SecondaryButton>
+        {/* <SecondaryButton>Parse Resume</SecondaryButton> */}
       </ButtonContainer>
     </HeroSection>
   );
