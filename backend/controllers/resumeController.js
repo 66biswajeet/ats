@@ -159,6 +159,8 @@ const updateResume = async (req, res) => {
     skillHeading,
     achievements,
     achievementHeading,
+    projects,
+    projectsHeading,
   } = resumeData; // Destructure resumeId and other fields
 
   console.log("Updating resume for userId:", userId, "resumeId:", resumeId);
@@ -190,6 +192,8 @@ const updateResume = async (req, res) => {
         skillHeading,
         achievements,
         achievementHeading,
+        projects,
+        projectsHeading,
         updatedAt: new Date().toISOString(),
       });
     });
