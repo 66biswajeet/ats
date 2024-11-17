@@ -50,7 +50,7 @@ const Button = styled.button`
   }
 `;
 
-const CandidateInfo = () => {
+const CandidateInfo = ({ onResumeUpdated }) => {
   const [candidateName, setCandidateName] = useState("");
   const [candidateEmail, setCandidateEmail] = useState("");
   const [candidateAddress, setCandidateAddress] = useState("");
@@ -115,7 +115,9 @@ const CandidateInfo = () => {
       if (!response.ok) {
         throw new Error("Failed to edit resume");
       }
-
+      if (onResumeUpdated) {
+        onResumeUpdated();
+      }
       console.log(resumeData);
       console.log(summaryData);
       setCandidateName("");

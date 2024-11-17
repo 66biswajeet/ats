@@ -197,8 +197,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useUser } from "@clerk/clerk-react";
-// import { chatSession } from "../../../../gen-ai/Gemini";
-import { connectOpenAIAPI } from "../../../../gen-ai/Gemini";
+import { chatSession } from "../../../../gen-ai/Gemini";
+// import { connectOpenAIAPI } from "../../../../gen-ai/Gemini";
 import experiencePrompt from "../../../../prompts/experience_prompt";
 import DOMPurify from "dompurify";
 import { useParams } from "react-router-dom";
@@ -297,14 +297,15 @@ const ExperienceInput = () => {
     setLoading(true);
     try {
       const experience = experiences[index];
-      // const experienceResponse = await chatSession.sendMessage(
-      //   experiencePrompt(experience.workDone)
-      // );
-      const experienceResponse = await connectOpenAIAPI(
+      const experienceResponse = await chatSession.sendMessage(
         experiencePrompt(experience.workDone)
       );
+      // const experienceResponse = await connectOpenAIAPI(
+      //   experiencePrompt(experience.workDone)
+      // );
       const sanitizedResponse = DOMPurify.sanitize(
         experienceResponse.response.text()
+        // experienceResponse
       );
 
       const updatedExperiences = experiences.map((exp, i) =>

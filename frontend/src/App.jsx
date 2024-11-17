@@ -21,6 +21,8 @@ import Signup from "./pages/Signup";
 import EditResume from "./Dashboard/resume/[resumeId]/edit/index";
 import Summary from "./Dashboard/resume/[resumeId]/edit/Summary";
 import EditResume2 from "./Dashboard/resume/[resumeId]/edit/EditResume2";
+import ResumeTemplate from "./pages/ResumeTemplate1";
+import Download from "./Dashboard/resume/[resumeId]/edit/Download";
 
 const ProtectedRoute = ({ children }) => {
   const { isLoaded, isSignedIn } = useUser();
@@ -87,6 +89,10 @@ const App = () => {
               <Route
                 path="/dashboard/resume/:resumeId/edit/summary"
                 element={<Summary />}
+              />
+              <Route
+                path="/dashboard/resume/:resumeId/edit/download"
+                element={<Download />}
               />
             </Routes>
           </JdProvider>

@@ -43,6 +43,9 @@ const addResume = async (req, res) => {
     experience,
     education,
     skills,
+    skillHeading,
+    achievements,
+    achievementHeading,
   } = req.body;
 
   try {
@@ -63,6 +66,9 @@ const addResume = async (req, res) => {
       experience, // Store experience array
       education, // Store education object
       skills, // Store skills array
+      skillHeading,
+      achievements,
+      achievementHeading,
       createdAt: new Date().toISOString(),
     });
 
@@ -149,6 +155,10 @@ const updateResume = async (req, res) => {
     experiences,
     education,
     educationHeading,
+    skills,
+    skillHeading,
+    achievements,
+    achievementHeading,
   } = resumeData; // Destructure resumeId and other fields
 
   console.log("Updating resume for userId:", userId, "resumeId:", resumeId);
@@ -176,6 +186,10 @@ const updateResume = async (req, res) => {
         experiencesHeading,
         education,
         educationHeading,
+        skills,
+        skillHeading,
+        achievements,
+        achievementHeading,
         updatedAt: new Date().toISOString(),
       });
     });

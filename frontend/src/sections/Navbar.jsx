@@ -226,7 +226,7 @@ const Navbar = () => {
     //   </AnimatePresence>
     // </Nav>
 
-    <Nav>
+    <Nav id="no-print">
       <LogoDiv>
         <Logo src={LogoImage} alt="ResumePro Logo" />
       </LogoDiv>

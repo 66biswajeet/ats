@@ -11,6 +11,9 @@ import EditResume2 from "./EditResume2";
 import ResumeSummaryInput from "./Summary";
 import ExperienceInput from "./Experience";
 import EducationInput from "./Education";
+import SkillsInput from "../../../Skills";
+import Dummy from "../../../../pages/Dummy";
+import Achievement from "./Achievement";
 
 const Container = styled.div`
   display: grid;
@@ -126,11 +129,15 @@ const RightContent = styled.div``;
 
 const EditResume = () => {
   const [openSection, setOpenSection] = useState(null);
-
+  const [isResumeUpdated, setIsResumeUpdated] = useState(false);
   const { user } = useUser();
   const [resumes, setResumes] = useState([]);
   const [selectedResume, setSelectedResume] = useState(null); // State for the filtered resume
   const { resumeId } = useParams();
+
+  const handleResumeUpdated = () => {
+    setIsResumeUpdated(true);
+  };
 
   const toggleSection = (index) => {
     setOpenSection(openSection === index ? null : index);
@@ -259,7 +266,6 @@ const EditResume = () => {
             <Docpara>
               This is where you can add controls, forms, or other content.
             </Docpara>
-
             {/* <InputContainer>
               <Label htmlFor="candidateName">Candidate Name:</Label>
               <StyledInput
@@ -300,7 +306,6 @@ const EditResume = () => {
               <Button>Next</Button>
             </Link>
             */}
-
             <Container2>
               <Section>
                 <Question onClick={() => toggleSection(0)}>
@@ -309,14 +314,15 @@ const EditResume = () => {
                 </Question>
                 <Answer isOpen={openSection === 0}>
                   <CandidateInfo
-                  // candidateName={candidateName}
-                  // candidateEmail={candidateEmail}
-                  // candidateAddress={candidateAddress}
-                  // setCandidateName={setCandidateName} // Pass the setter
-                  // setCandidateEmail={setCandidateEmail} // Pass the setter
-                  // setCandidateAddress={setCandidateAddress} // Pass the setter
-                  // handleEditResumes={handleEditResumes}
-                  // selectedResumeId={selectedResume.resumeId} // Pass the selected resume ID
+                    onResumeUpdated={handleResumeUpdated}
+                    // candidateName={candidateName}
+                    // candidateEmail={candidateEmail}
+                    // candidateAddress={candidateAddress}
+                    // setCandidateName={setCandidateName} // Pass the setter
+                    // setCandidateEmail={setCandidateEmail} // Pass the setter
+                    // setCandidateAddress={setCandidateAddress} // Pass the setter
+                    // handleEditResumes={handleEditResumes}
+                    // selectedResumeId={selectedResume.resumeId} // Pass the selected resume ID
                   />
                 </Answer>
               </Section>
@@ -359,6 +365,25 @@ const EditResume = () => {
                   />
                 </Answer>
               </Section>
+
+              <Section>
+                <Question onClick={() => toggleSection(4)}>
+                  <h4>Add Skills</h4>
+                  <h2>{openSection === 4 ? "-" : "+"}</h2>
+                </Question>
+                <Answer isOpen={openSection === 4}>
+                  <SkillsInput />
+                </Answer>
+              </Section>
+              <Section>
+                <Question onClick={() => toggleSection(5)}>
+                  <h4>Add Achievements</h4>
+                  <h2>{openSection === 5 ? "-" : "+"}</h2>
+                </Question>
+                <Answer isOpen={openSection === 5}>
+                  <Achievement />
+                </Answer>
+              </Section>
             </Container2>
           </LeftContent>
         ) : (
@@ -368,7 +393,11 @@ const EditResume = () => {
         <RightContent>
           {" "}
           <Head>Resume Preview</Head>
-          <ResumeTemplate1 />
+          {isResumeUpdated ? <ResumeTemplate1 /> : <Dummy />}
+          {/* <ResumeTemplate1 /> */}
+          <Link to={`/dashboard/resume/${resumeId}/edit/download`}>
+            <Button>Download</Button>
+          </Link>
         </RightContent>
       </Container>
     </>

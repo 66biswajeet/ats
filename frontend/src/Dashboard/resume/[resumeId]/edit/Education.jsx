@@ -203,8 +203,8 @@ const EducationInput = () => {
           />
         </Div>
       ))}
-      <Button onClick={addNewEducation}>Add New Experience</Button>
-      <Button onClick={handleSaveExperience}>Save All Experiences</Button>
+      <Button onClick={addNewEducation}>Add Qualification</Button>
+      <Button onClick={handleSaveExperience}>Save All Qualitfications</Button>
     </InputContainer>
   );
 };

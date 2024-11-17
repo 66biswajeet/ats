@@ -90,6 +90,27 @@ const Education = styled.div`
   font-size: 10pt;
 `;
 
+const Sk = styled.span`
+  border: none;
+  padding: 0 5px;
+  border-radius: 5px;
+  background-color: var(--fifth-color);
+
+  font-size: 15px;
+  margin: 5px 5px;
+`;
+
+const Skdiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+const Adiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+`;
+
 // Main ResumeTemplate component
 const ResumeTemplate = () => {
   const { user } = useUser(); // Get user object from Clerk
@@ -163,15 +184,13 @@ const ResumeTemplate = () => {
   };
   // Render resume data
   return (
-    <A4Page>
+    <A4Page id="print-area">
       <Header>
-        <Name>{selectedResume.candidateName || "Lorem Ipsum"}</Name>
+        <Name>{selectedResume.candidateName}</Name>
         <ContactInfo>
-          <div>{selectedResume.candidateEmail || "lorem@mail.com"}</div>
-          <div>
-            {selectedResume.candidateAddress || "lorem Colony, Near lorem Gate"}
-          </div>
-          <div>{selectedResume.candidateNumber || "0000011111"}</div>
+          <div>{selectedResume.candidateEmail}</div>
+          <div>{selectedResume.candidateAddress}</div>
+          <div>{selectedResume.candidateNumber}</div>
         </ContactInfo>
       </Header>
 
@@ -179,12 +198,6 @@ const ResumeTemplate = () => {
       <Summary>{selectedResume.summary}</Summary>
 
       <Section>
-        {/* <Summary
-          dangerouslySetInnerHTML={{
-            __html: formatResponse(selectedResume.experiences.map(())),
-          }}
-        /> */}
-
         <SectionTitle>{selectedResume.experiencesHeading}</SectionTitle>
         {selectedResume.experiences && selectedResume.experiences.length > 0 ? (
           selectedResume.experiences.map((experience, index) => (
@@ -219,27 +232,29 @@ const ResumeTemplate = () => {
           <p></p>
         )}
 
-        {/* {console.log(selectedResume.experience)}
-      </Section>
-
-      <Section>
-        {/* <SectionTitle>EDUCATION</SectionTitle> */}
-        {/* <Education>
-          <strong>{selectedResume.education.school}</strong>,{" "}
-          {selectedResume.education.location}
-          <br /> {selectedResume.education.degree}
-          <br /> Honors: {selectedResume.education.honors}
-          <br /> {selectedResume.education.date}
-        </Education> */}
-      </Section>
-
-      <Section>
-        {/* <SectionTitle>ADDITIONAL SKILLS</SectionTitle> */}
-        {/* <BulletList>
-          {selectedResume.skills.map((skill, index) => (
-            <BulletItem key={index}>{skill}</BulletItem>
-          ))}
-        </BulletList> */}
+        <SectionTitle>{selectedResume.skillHeading}</SectionTitle>
+        {selectedResume.skills && selectedResume.skills.length > 0 ? (
+          <Skdiv>
+            {selectedResume.skills.map((sk, index) => (
+              <Sk key={index}>{sk}</Sk>
+            ))}{" "}
+            {/* Closing parenthesis here */}
+          </Skdiv>
+        ) : (
+          <p></p>
+        )}
+        <SectionTitle>{selectedResume.achievementHeading}</SectionTitle>
+        {selectedResume.achievements &&
+        selectedResume.achievements.length > 0 ? (
+          <Adiv>
+            {selectedResume.achievements.map((sk, index) => (
+              <Sk key={index}>{sk}</Sk>
+            ))}{" "}
+            {/* Closing parenthesis here */}
+          </Adiv>
+        ) : (
+          <p></p>
+        )}
       </Section>
     </A4Page>
   );

@@ -29,7 +29,10 @@ class Newresume {
     experiencesHeading = "",
     education = [],
     educationHeading = "",
-    skills = []
+    skills = [],
+    skillHeading = "",
+    achievements = [],
+    achievementHeading = ""
   ) {
     this.username = username;
     this.email = email;
@@ -46,6 +49,9 @@ class Newresume {
     this.education = education;
     this.educationHeading = educationHeading;
     this.skills = skills;
+    this.skillHeading = skillHeading;
+    this.achievements = achievements;
+    this.achievementHeading = achievementHeading;
   }
 }
 
