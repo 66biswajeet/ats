@@ -29,7 +29,7 @@ export const chatSession = model.startChat({
 // import OpenAI from "openai";
 
 // const OPENAI_API_KEY =
-//   "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";
+//   "";
 
 // // Initialize the OpenAI client
 // const openai = new OpenAI({
