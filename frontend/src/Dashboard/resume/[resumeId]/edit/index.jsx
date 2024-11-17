@@ -14,6 +14,7 @@ import EducationInput from "./Education";
 import SkillsInput from "../../../Skills";
 import Dummy from "../../../../pages/Dummy";
 import Achievement from "./Achievement";
+import Projects from "./Projects";
 
 const Container = styled.div`
   display: grid;
@@ -368,19 +369,33 @@ const EditResume = () => {
 
               <Section>
                 <Question onClick={() => toggleSection(4)}>
-                  <h4>Add Skills</h4>
+                  <h4> Add Projects</h4>
                   <h2>{openSection === 4 ? "-" : "+"}</h2>
                 </Question>
                 <Answer isOpen={openSection === 4}>
+                  <Projects
+                  // summary={summary}
+                  // setSummary={setSummary}
+                  // handleEditResumes={handleEditResumes}
+                  />
+                </Answer>
+              </Section>
+
+              <Section>
+                <Question onClick={() => toggleSection(5)}>
+                  <h4>Add Skills</h4>
+                  <h2>{openSection === 5 ? "-" : "+"}</h2>
+                </Question>
+                <Answer isOpen={openSection === 5}>
                   <SkillsInput />
                 </Answer>
               </Section>
               <Section>
-                <Question onClick={() => toggleSection(5)}>
+                <Question onClick={() => toggleSection(6)}>
                   <h4>Add Achievements</h4>
-                  <h2>{openSection === 5 ? "-" : "+"}</h2>
+                  <h2>{openSection === 6 ? "-" : "+"}</h2>
                 </Question>
-                <Answer isOpen={openSection === 5}>
+                <Answer isOpen={openSection === 6}>
                   <Achievement />
                 </Answer>
               </Section>

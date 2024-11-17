@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
+import bg from "../assets/rb2.jpg";
 
 const HeroSection = styled.section`
   /* background-color: var(--fifth-color); */
@@ -12,6 +13,10 @@ const HeroSection = styled.section`
   display: flex;
   flex-direction: column;
   row-gap: 25px;
+
+  background-image: url(${bg});
+  background-size: cover;
+  background-repeat: no-repeat;
 
   @media (max-width: 768px) {
     padding: 3rem 1rem;

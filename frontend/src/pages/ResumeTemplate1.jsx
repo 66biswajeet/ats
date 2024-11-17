@@ -232,6 +232,21 @@ const ResumeTemplate = () => {
           <p></p>
         )}
 
+        <SectionTitle>{selectedResume.projectsHeading}</SectionTitle>
+        {selectedResume.projects && selectedResume.projects.length > 0 ? (
+          selectedResume.projects.map((edu, index) => (
+            <ExperienceItem key={index}>
+              <JobDetails>
+                <Company>{edu.heading || "Institute Name"}</Company>
+              </JobDetails>
+              {/* <Location>{experience.workDone || "Workdone"}</Location> */}
+              <Summary>{edu.description}</Summary>
+            </ExperienceItem>
+          ))
+        ) : (
+          <p></p>
+        )}
+
         <SectionTitle>{selectedResume.skillHeading}</SectionTitle>
         {selectedResume.skills && selectedResume.skills.length > 0 ? (
           <Skdiv>
