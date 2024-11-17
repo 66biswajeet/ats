@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import GaugeMeter from "../components/GaugeMeter";
 import styled from "styled-components";
 import { chatSession } from "../gen-ai/Gemini";
+// import { connectOpenAIAPI } from "../gen-ai/Gemini";
 import { useJdContext } from "../systems/JdContext";
 import { useResumeContext } from "../systems/ResumeContext";
 import JdPrompt from "../prompts/JdPrompt";
@@ -91,14 +92,22 @@ const Ats_meter = () => {
             const jd_response = await chatSession.sendMessage(
               JdPrompt(prompt1, prompt2)
             );
+            // const jd_response = await connectOpenAIAPI(
+            //   JdPrompt(prompt1, prompt2)
+            // );
             responses.push(jd_response);
-            console.log(jd_response.response.text());
+            // responses.push(jd_response.response.text());
+            // console.log(jd_response.response.text());
+            // console.log(jd_response);
           }
 
           const thirdResponse = Math.min(
             responses[2].response.text(),
             responses[1].response.text(),
             responses[0].response.text()
+            // responses[2],
+            // responses[1],
+            // responses[0]
           );
 
           const newResponse = thirdResponse;

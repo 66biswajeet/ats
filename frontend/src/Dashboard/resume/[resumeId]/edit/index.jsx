@@ -9,7 +9,11 @@ import ResumeTemplate2 from "../../../../pages/ResumeTemplate2";
 import CandidateInfo from "./CandidateInfo";
 import EditResume2 from "./EditResume2";
 import ResumeSummaryInput from "./Summary";
+import ExperienceInput from "./Experience";
+import EducationInput from "./Education";
 import SkillsInput from "../../../Skills";
+import Dummy from "../../../../pages/Dummy";
+import Achievement from "./Achievement";
 
 const Container = styled.div`
   display: grid;
@@ -125,11 +129,15 @@ const RightContent = styled.div``;
 
 const EditResume = () => {
   const [openSection, setOpenSection] = useState(null);
-
+  const [isResumeUpdated, setIsResumeUpdated] = useState(false);
   const { user } = useUser();
   const [resumes, setResumes] = useState([]);
   const [selectedResume, setSelectedResume] = useState(null); // State for the filtered resume
   const { resumeId } = useParams();
+
+  const handleResumeUpdated = () => {
+    setIsResumeUpdated(true);
+  };
 
   const toggleSection = (index) => {
     setOpenSection(openSection === index ? null : index);
@@ -227,20 +235,6 @@ const EditResume = () => {
       return (
         <div>
           <Head>Resume Preview</Head>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis
-            quidem omnis illo sapiente veritatis placeat temporibus corporis
-            labore voluptas dolore consequuntur molestiae doloremque quae
-            reprehenderit explicabo distinctio, hic fugiat quisquam voluptatum
-            aperiam veniam vitae. Expedita saepe iusto sed, nemo asperiores
-            placeat impedit id earum minus fuga consequatur modi iste quaerat
-            numquam voluptas eligendi dolore quod dicta rerum natus! Cumque
-            consequuntur commodi facere similique architecto iusto magnam,
-            voluptatum ullam adipisci aut, ipsum sequi praesentium iste
-            laboriosam suscipit repellat! Amet magni quae, aliquam natus maxime
-            non. Fugiat reiciendis placeat deleniti cumque sed nam dolores
-            nesciunt voluptatem, asperiores excepturi, fuga sint vero commodi.
-          </p>
         </div>
       );
     } else {
@@ -320,14 +314,15 @@ const EditResume = () => {
                 </Question>
                 <Answer isOpen={openSection === 0}>
                   <CandidateInfo
-                  // candidateName={candidateName}
-                  // candidateEmail={candidateEmail}
-                  // candidateAddress={candidateAddress}
-                  // setCandidateName={setCandidateName} // Pass the setter
-                  // setCandidateEmail={setCandidateEmail} // Pass the setter
-                  // setCandidateAddress={setCandidateAddress} // Pass the setter
-                  // handleEditResumes={handleEditResumes}
-                  // selectedResumeId={selectedResume.resumeId} // Pass the selected resume ID
+                    onResumeUpdated={handleResumeUpdated}
+                    // candidateName={candidateName}
+                    // candidateEmail={candidateEmail}
+                    // candidateAddress={candidateAddress}
+                    // setCandidateName={setCandidateName} // Pass the setter
+                    // setCandidateEmail={setCandidateEmail} // Pass the setter
+                    // setCandidateAddress={setCandidateAddress} // Pass the setter
+                    // handleEditResumes={handleEditResumes}
+                    // selectedResumeId={selectedResume.resumeId} // Pass the selected resume ID
                   />
                 </Answer>
               </Section>
@@ -344,25 +339,52 @@ const EditResume = () => {
                   />
                 </Answer>
               </Section>
-            </Container2>{" "}
-            <Section>
-              <Question onClick={() => toggleSection(0)}>
-                <h4>Add Skills</h4>
-                <h2>{openSection === 0 ? "-" : "+"}</h2>
-              </Question>
-              <Answer isOpen={openSection === 0}>
-                <SkillsInput
-                // candidateName={candidateName}
-                // candidateEmail={candidateEmail}
-                // candidateAddress={candidateAddress}
-                // setCandidateName={setCandidateName} // Pass the setter
-                // setCandidateEmail={setCandidateEmail} // Pass the setter
-                // setCandidateAddress={setCandidateAddress} // Pass the setter
-                // handleEditResumes={handleEditResumes}
-                // selectedResumeId={selectedResume.resumeId} // Pass the selected resume ID
-                />
-              </Answer>
-            </Section>
+              <Section>
+                <Question onClick={() => toggleSection(2)}>
+                  <h4> Add Experience</h4>
+                  <h2>{openSection === 2 ? "-" : "+"}</h2>
+                </Question>
+                <Answer isOpen={openSection === 2}>
+                  <ExperienceInput
+                  // summary={summary}
+                  // setSummary={setSummary}
+                  // handleEditResumes={handleEditResumes}
+                  />
+                </Answer>
+              </Section>
+              <Section>
+                <Question onClick={() => toggleSection(3)}>
+                  <h4> Add Education</h4>
+                  <h2>{openSection === 3 ? "-" : "+"}</h2>
+                </Question>
+                <Answer isOpen={openSection === 3}>
+                  <EducationInput
+                  // summary={summary}
+                  // setSummary={setSummary}
+                  // handleEditResumes={handleEditResumes}
+                  />
+                </Answer>
+              </Section>
+
+              <Section>
+                <Question onClick={() => toggleSection(4)}>
+                  <h4>Add Skills</h4>
+                  <h2>{openSection === 4 ? "-" : "+"}</h2>
+                </Question>
+                <Answer isOpen={openSection === 4}>
+                  <SkillsInput />
+                </Answer>
+              </Section>
+              <Section>
+                <Question onClick={() => toggleSection(5)}>
+                  <h4>Add Achievements</h4>
+                  <h2>{openSection === 5 ? "-" : "+"}</h2>
+                </Question>
+                <Answer isOpen={openSection === 5}>
+                  <Achievement />
+                </Answer>
+              </Section>
+            </Container2>
           </LeftContent>
         ) : (
           <p>Loading resume data....</p>
@@ -371,7 +393,11 @@ const EditResume = () => {
         <RightContent>
           {" "}
           <Head>Resume Preview</Head>
-          <ResumeTemplate1 />
+          {isResumeUpdated ? <ResumeTemplate1 /> : <Dummy />}
+          {/* <ResumeTemplate1 /> */}
+          <Link to={`/dashboard/resume/${resumeId}/edit/download`}>
+            <Button>Download</Button>
+          </Link>
         </RightContent>
       </Container>
     </>

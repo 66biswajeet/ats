@@ -299,8 +299,8 @@ const New_resume = () => {
   const { user } = useUser(); // Optional if you're using Clerk for authentication
   const [isOpen, setIsOpen] = useState(false);
 
-  const [isDelete,setIsDelete]= useState(false);
-  const [isDeleteId,setIsDeleteId]=useState();
+  const [isDelete, setIsDelete] = useState(false);
+  const [isDeleteId, setIsDeleteId] = useState();
 
   const [resumeTitle, setResumeTitle] = useState("");
   const [resumes, setResumes] = useState([]);
@@ -320,14 +320,13 @@ const New_resume = () => {
 
   const handleClick = () => {
     setIsOpen(true);
-    
   };
 
-  const handleDelete = (r)=>{
+  const handleDelete = (r) => {
     setIsDelete(true);
     setIsDeleteId(r);
     return r;
-  }
+  };
 
   const resumeId = uuidv4();
   const handleCreateResume = async () => {
@@ -459,54 +458,52 @@ const New_resume = () => {
             </Pc>
           )}
 
-          { 
-            isDelete && (
-              <Pc>
-                <Popup>
-                  <Title> Are you sure you want to permanently delete the selected Resume? </Title>
-                  <Close onClick={()=>handleDeleteResume(isDeleteId)}>Delete</Close>
-                  <Close onClick={()=> setIsDelete(false)}>Cancel</Close>
-                </Popup>
-              </Pc>
-            )
-          }
-
-          
+          {isDelete && (
+            <Pc>
+              <Popup>
+                <Title>
+                  {" "}
+                  Are you sure you want to permanently delete the selected
+                  Resume?{" "}
+                </Title>
+                <Close onClick={() => handleDeleteResume(isDeleteId)}>
+                  Delete
+                </Close>
+                <Close onClick={() => setIsDelete(false)}>Cancel</Close>
+              </Popup>
+            </Pc>
+          )}
 
           <ResumeList>
             {resumes.map((resume) => (
-              <div key={resume.resumeId}> 
-              
-              <ResumeCard >
-                <ResumeDate>
-                  Last Updated : <br></br>{" "}
-                  {new Date(
-                    resume.updatedAt || resume.createdAt
-                  ).toLocaleString()}
-                </ResumeDate>
+              <div key={resume.resumeId}>
+                <ResumeCard>
+                  <ResumeDate>
+                    Last Updated : <br></br>{" "}
+                    {new Date(
+                      resume.updatedAt || resume.createdAt
+                    ).toLocaleString()}
+                  </ResumeDate>
 
-                <ResumeTitle>{resume.resumeName}</ResumeTitle>
+                  <ResumeTitle>{resume.resumeName}</ResumeTitle>
 
-                <Subtitle>You can edit or delete resume</Subtitle>
+                  <Subtitle>You can edit or delete resume</Subtitle>
 
-                <ButtonGroup>
-                  <Button
-                    as={Link}
-                    to={`/dashboard/resume/${resume.resumeId}/edit`}
-                    primary
-                  >
-                    <GrEdit />. Edit
-                  </Button>
+                  <ButtonGroup>
+                    <Button
+                      as={Link}
+                      to={`/dashboard/resume/${resume.resumeId}/edit`}
+                      primary
+                    >
+                      <GrEdit />. Edit
+                    </Button>
 
-                  {/* <Button onClick={() => handleDeleteResume(resume.resumeId)}> */}
-                  <Button onClick={()=>handleDelete(resume.resumeId)} >
-                    <AiFillDelete /> Delete
-                    
-                  </Button>
-                </ButtonGroup>
-              </ResumeCard>
-              
-
+                    {/* <Button onClick={() => handleDeleteResume(resume.resumeId)}> */}
+                    <Button onClick={() => handleDelete(resume.resumeId)}>
+                      <AiFillDelete /> Delete
+                    </Button>
+                  </ButtonGroup>
+                </ResumeCard>
               </div>
             ))}{" "}
           </ResumeList>

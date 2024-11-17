@@ -24,11 +24,15 @@ class Newresume {
     candidateAddress = "",
     candidateNumber = "",
     summary = "",
-    summaryHeading = "Summary",
-    experience = [],
-    education = {},
+    summaryHeading = "",
+    experiences = [],
+    experiencesHeading = "",
+    education = [],
+    educationHeading = "",
     skills = [],
-    skillHeading = ""
+    skillHeading = "",
+    achievements = [],
+    achievementHeading = ""
   ) {
     this.username = username;
     this.email = email;
@@ -40,10 +44,14 @@ class Newresume {
     this.candidateNumber = candidateNumber;
     this.summary = summary;
     this.summaryHeading = summaryHeading;
-    this.experience = experience;
+    this.experiencesHeading = experiencesHeading;
+    this.experiences = experiences;
     this.education = education;
+    this.educationHeading = educationHeading;
     this.skills = skills;
     this.skillHeading = skillHeading;
+    this.achievements = achievements;
+    this.achievementHeading = achievementHeading;
   }
 }
 

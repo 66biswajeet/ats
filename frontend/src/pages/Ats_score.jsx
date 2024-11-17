@@ -6,6 +6,7 @@ import { Link, Navigate } from "react-router-dom";
 
 // gemini api //
 import { chatSession } from "../gen-ai/Gemini";
+// import { connectOpenAIAPI } from "../gen-ai/Gemini";
 
 // dynamicly allow prompt2 to travell any where //
 import { useJdContext } from "../systems/JdContext";
@@ -86,7 +87,11 @@ const Ats_score = () => {
         const resume_response = await chatSession.sendMessage(
           Resume_extract_prompt(prompt2) // the prompt defind in the Prompts.js file .
         );
+        // const resume_response = await connectOpenAIAPI(
+        //   Resume_extract_prompt(prompt2) // the prompt defind in the Prompts.js file .
+        // );
         setResponse(resume_response.response.text()); // response hook have the generated response from the gemini .
+        // setResponse(resume_response); // response hook have the generated response from the gemini .
       } catch (error) {
         console.error("Error fetching response:", error);
       }

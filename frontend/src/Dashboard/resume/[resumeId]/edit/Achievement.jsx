@@ -56,7 +56,6 @@ const SkillItem = styled.li`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-  flex-direction: row;
 
   span {
     font-size: 16px;
@@ -78,12 +77,12 @@ const SkillItem = styled.li`
   }
 `;
 
-const SkillsInput = () => {
+const Achievement = () => {
   const { user } = useUser();
   const { resumeId } = useParams();
 
-  const [skills, setSkills] = useState([]);
-  const [newSkill, setNewSkill] = useState("");
+  const [achievements, setAchievements] = useState([]);
+  const [newAchievements, setNewAchievements] = useState("");
 
   const [resumes, setResumes] = useState([]);
   const [selectedResume, setSelectedResume] = useState();
@@ -105,7 +104,7 @@ const SkillsInput = () => {
       const selectedResume = data.find(
         (resume) => resume.resumeId === resumeId
       );
-      setSkills(selectedResume?.skills || []);
+      setAchievements(selectedResume?.achievements || []);
     } catch (error) {
       console.error("Error fetching skills:", error);
     }
@@ -115,23 +114,28 @@ const SkillsInput = () => {
     fetchSkills();
   }, [user, resumeId]);
 
-  const handleAddSkill = () => {
-    if (newSkill.trim() === "") return;
+  const handleAddAchievements = () => {
+    if (newAchievements.trim() === "") return;
 
-    setSkills((prevSkills) => [...prevSkills, newSkill.trim()]);
-    setNewSkill("");
+    setAchievements((prevAchievements) => [
+      ...prevAchievements,
+      newAchievements.trim(),
+    ]);
+    setNewAchievements("");
   };
 
-  const handleDeleteSkill = (index) => {
-    setSkills((prevSkills) => prevSkills.filter((_, i) => i !== index));
+  const handleDeleteAchievements = (index) => {
+    setAchievements((prevAchievements) =>
+      prevAchievements.filter((_, i) => i !== index)
+    );
   };
 
-  const handleSaveSkills = async () => {
+  const handleSaveAchievements = async () => {
     const resumeData = {
       resumeId: resumeId,
 
-      skills: skills,
-      skillHeading: "Skills",
+      achievements: achievements,
+      achievementHeading: "Achievements",
     };
     try {
       const response = await fetch(
@@ -168,34 +172,34 @@ const SkillsInput = () => {
   }, [resumes, resumeId]);
 
   console.log(useUser);
-  console.log(skills);
+  //   console.log(skills);
 
   return (
     <InputContainer>
-      <Label htmlFor="skills">Skills:</Label>
+      <Label htmlFor="skills">Achievements</Label>
       <StyledInput
         id="skills"
         placeholder="Enter a skill and press Add"
-        value={newSkill}
-        onChange={(e) => setNewSkill(e.target.value)}
+        value={newAchievements}
+        onChange={(e) => setNewAchievements(e.target.value)}
       />
-      <Button onClick={handleAddSkill}>Add Skill</Button>
+      <Button onClick={handleAddAchievements}>Add Achievements</Button>
       <SkillsList>
-        {skills.map((skill, index) => (
+        {achievements.map((a, index) => (
           <SkillItem key={index}>
-            <span>{skill}</span>
+            <span>{a}</span>
             <Button
               style={{ backgroundColor: "black", color: "white" }}
-              onClick={() => handleDeleteSkill(index)}
+              onClick={() => handleDeleteAchievements(index)}
             >
               Delete
             </Button>
           </SkillItem>
         ))}
       </SkillsList>
-      <Button onClick={handleSaveSkills}>Save Skills</Button>
+      <Button onClick={handleSaveAchievements}>Save Achievements</Button>
     </InputContainer>
   );
 };
 
-export default SkillsInput;
+export default Achievement;

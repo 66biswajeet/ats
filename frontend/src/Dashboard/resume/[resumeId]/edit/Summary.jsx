@@ -6,6 +6,7 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import { chatSession } from "../../../../gen-ai/Gemini";
+// import { connectOpenAIAPI } from "../../../../gen-ai/Gemini";
 import summaryPrompt from "../../../../prompts/summaryPrompt";
 
 const InputContainer = styled.div`
@@ -141,7 +142,11 @@ const ResumeSummaryInput = () => {
       const summary_response = await chatSession.sendMessage(
         summaryPrompt(userSummary)
       );
+      // const summary_response = await connectOpenAIAPI(
+      //   summaryPrompt(userSummary)
+      // );
       setResponse(summary_response.response.text());
+      // setResponse(summary_response);
     } catch (error) {
       console.error("Error fetching response:", error);
     }

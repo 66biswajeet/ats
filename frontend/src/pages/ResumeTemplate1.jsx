@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useUser } from "@clerk/clerk-react"; // Ensure Clerk is properly set up
-
+import DOMPurify from "dompurify";
 // Styled Components
 const A4Page = styled.div`
   width: 178mm;
@@ -29,10 +29,17 @@ const ContactInfo = styled.div`
   color: #333;
 `;
 
-const Summary = styled.p`
+const Summary = styled.span`
   font-size: 10pt;
   // text-align: center;
   margin-bottom: 5mm;
+`;
+
+const Marks = styled.span`
+  font-size: 10pt;
+  // text-align: center;
+  margin-bottom: 5mm;
+  margin-left: 10px;
 `;
 
 const Section = styled.section`
@@ -81,6 +88,27 @@ const BulletItem = styled.li`
 
 const Education = styled.div`
   font-size: 10pt;
+`;
+
+const Sk = styled.span`
+  border: none;
+  padding: 0 5px;
+  border-radius: 5px;
+  background-color: var(--fifth-color);
+
+  font-size: 15px;
+  margin: 5px 5px;
+`;
+
+const Skdiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+const Adiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 `;
 
 // Main ResumeTemplate component
@@ -151,17 +179,18 @@ const ResumeTemplate = () => {
     return <p>No resume data available</p>; // Fallback if no data is found
   }
 
+  const formatResponse = (text) => {
+    return DOMPurify.sanitize(text);
+  };
   // Render resume data
   return (
-    <A4Page>
+    <A4Page id="print-area">
       <Header>
-        <Name>{selectedResume.candidateName || "Lorem Ipsum"}</Name>
+        <Name>{selectedResume.candidateName}</Name>
         <ContactInfo>
-          <div>{selectedResume.candidateEmail || "lorem@mail.com"}</div>
-          <div>
-            {selectedResume.candidateAddress || "lorem Colony, Near lorem Gate"}
-          </div>
-          <div>{selectedResume.candidatePhone || "0000011111"}</div>
+          <div>{selectedResume.candidateEmail}</div>
+          <div>{selectedResume.candidateAddress}</div>
+          <div>{selectedResume.candidateNumber}</div>
         </ContactInfo>
       </Header>
 
@@ -169,43 +198,63 @@ const ResumeTemplate = () => {
       <Summary>{selectedResume.summary}</Summary>
 
       <Section>
-        {/* <SectionTitle>PROFESSIONAL EXPERIENCE</SectionTitle> */}
-        {/* {selectedResume.experience &&
-          selectedResume.experience.map((job, index) => (
+        <SectionTitle>{selectedResume.experiencesHeading}</SectionTitle>
+        {selectedResume.experiences && selectedResume.experiences.length > 0 ? (
+          selectedResume.experiences.map((experience, index) => (
             <ExperienceItem key={index}>
-              <JobTitle>{job.jobTitle}</JobTitle>
               <JobDetails>
-                <Company>{job.company},</Company>
-                <Location>{job.location}</Location>
+                <Company>{experience.companyName || "Company Name"}</Company>
+
+                <span>{experience.timeWorked || "Time Period"}</span>
               </JobDetails>
-              <div>{job.date}</div>
-              <BulletList>
-                {job.bullets.map((bullet, i) => (
-                  <BulletItem key={i}>{bullet}</BulletItem>
-                ))}
-              </BulletList>
+              {/* <Location>{experience.workDone || "Workdone"}</Location> */}
+              <Summary>{experience.fresponse}</Summary>
             </ExperienceItem>
-          ))} */}
-      </Section>
+          ))
+        ) : (
+          <p></p>
+        )}
 
-      <Section>
-        {/* <SectionTitle>EDUCATION</SectionTitle> */}
-        {/* <Education>
-          <strong>{selectedResume.education.school}</strong>,{" "}
-          {selectedResume.education.location}
-          <br /> {selectedResume.education.degree}
-          <br /> Honors: {selectedResume.education.honors}
-          <br /> {selectedResume.education.date}
-        </Education> */}
-      </Section>
+        <SectionTitle>{selectedResume.educationHeading}</SectionTitle>
+        {selectedResume.education && selectedResume.education.length > 0 ? (
+          selectedResume.education.map((edu, index) => (
+            <ExperienceItem key={index}>
+              <JobDetails>
+                <Company>{edu.instituteName || "Institute Name"}</Company>
 
-      <Section>
-        {/* <SectionTitle>ADDITIONAL SKILLS</SectionTitle> */}
-        {/* <BulletList>
-          {selectedResume.skills.map((skill, index) => (
-            <BulletItem key={index}>{skill}</BulletItem>
-          ))}
-        </BulletList> */}
+                <span>{edu.duration || "Time Period"}</span>
+              </JobDetails>
+              {/* <Location>{experience.workDone || "Workdone"}</Location> */}
+              <Summary>{edu.course}</Summary> <Marks>{edu.marks}</Marks>
+            </ExperienceItem>
+          ))
+        ) : (
+          <p></p>
+        )}
+
+        <SectionTitle>{selectedResume.skillHeading}</SectionTitle>
+        {selectedResume.skills && selectedResume.skills.length > 0 ? (
+          <Skdiv>
+            {selectedResume.skills.map((sk, index) => (
+              <Sk key={index}>{sk}</Sk>
+            ))}{" "}
+            {/* Closing parenthesis here */}
+          </Skdiv>
+        ) : (
+          <p></p>
+        )}
+        <SectionTitle>{selectedResume.achievementHeading}</SectionTitle>
+        {selectedResume.achievements &&
+        selectedResume.achievements.length > 0 ? (
+          <Adiv>
+            {selectedResume.achievements.map((sk, index) => (
+              <Sk key={index}>{sk}</Sk>
+            ))}{" "}
+            {/* Closing parenthesis here */}
+          </Adiv>
+        ) : (
+          <p></p>
+        )}
       </Section>
     </A4Page>
   );

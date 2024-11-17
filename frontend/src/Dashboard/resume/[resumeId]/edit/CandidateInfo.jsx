@@ -50,7 +50,7 @@ const Button = styled.button`
   }
 `;
 
-const CandidateInfo = () => {
+const CandidateInfo = ({ onResumeUpdated }) => {
   const [candidateName, setCandidateName] = useState("");
   const [candidateEmail, setCandidateEmail] = useState("");
   const [candidateAddress, setCandidateAddress] = useState("");
@@ -115,7 +115,9 @@ const CandidateInfo = () => {
       if (!response.ok) {
         throw new Error("Failed to edit resume");
       }
-
+      if (onResumeUpdated) {
+        onResumeUpdated();
+      }
       console.log(resumeData);
       console.log(summaryData);
       setCandidateName("");
@@ -175,6 +177,16 @@ const CandidateInfo = () => {
           placeholder="Enter Candidate Address"
           value={candidateAddress}
           onChange={(e) => setCandidateAddress(e.target.value)} // Use direct setter here
+        />
+      </InputContainer>
+      <InputContainer>
+        <Label htmlFor="candidateNumber">Candidate Phone Number:</Label>
+        <StyledInput
+          id="candidateNumber"
+          type="text"
+          placeholder="Enter Candidate Phone Number"
+          value={candidateNumber}
+          onChange={(e) => setCandidateNumber(e.target.value)} // Use direct setter here
         />
       </InputContainer>
 
